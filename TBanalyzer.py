@@ -400,10 +400,14 @@ for event in events:
 		#The Ntuple entries are ordered in pt, so [0] is the highest pt entry
 		#We are calling a candidate b jet (highest pt jet in hemisphere0)  
 		bjet = bJetsh0[0]
+		if abs(bjet.eta())>2.40:
+			continue
 		BDiscLabel = hemis0BDiscLabel
 		BDiscHandle = hemis0BDiscHandle
 
 		tjet = topJetsh1[0]
+		if abs(tjet.eta())>2.40:
+			continue
         	TopMassLabel = hemis1TopMassLabel
 		TopMassHandle = hemis1TopMassHandle
         	NSubJetsLabel = hemis1NSubJetsLabel
@@ -443,7 +447,8 @@ for event in events:
     		TopBDiscsj3CSVLabel = hemis0TopBDiscsj3CSVLabel
 		TopBDiscsj3CSVHandle = hemis0TopBDiscsj3CSVHandle
 
-
+	if abs(bjet.eta())>2.40 or abs(tjet.eta())>2.40:
+		continue
 
     	weight=1.0
      	weightSFptup=1.0

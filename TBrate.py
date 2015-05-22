@@ -381,6 +381,8 @@ for event in events:
     		TopBDiscsj3CSVLabel = hemis0TopBDiscsj3CSVLabel
 		TopBDiscsj3CSVHandle = hemis0TopBDiscsj3CSVHandle
 
+	if abs(bjet.eta())>2.40 or abs(tjet.eta())>2.40:
+		continue
 
     	weight=1.0
 	#Cuts are loaded from the Wprime_Functions.py file
