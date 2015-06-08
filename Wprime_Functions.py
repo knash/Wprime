@@ -148,13 +148,13 @@ def Load_Ntuples(string):
 	if string == 'ttbar1000':
 		files = glob.glob("/uscms_data/d3/knash/WPrime8TeV/CMSSW_5_3_18/src/Analysis/TTBSMPatTuples/test/ttbar_Mtt-1000toinf/res/*.root" )
 	if string == 'ttbar700scaleup':
-		files = glob.glob("/uscms_data/d3/knash/WPrime8TeV/CMSSW_5_3_18/src/Analysis/TTBSMPatTuples/test/ttbar_Mtt-700to1000scaleup/res/*.root" )
+		files = glob.glob("/uscms_data/d3/knash/WPrime8TeV/CMSSW_5_3_18/src/Analysis/TTBSMPatTuples/test/ttbar_Mtt-700to1000_scaleup/res/*.root" )
 	if string == 'ttbar700scaledown':
-		files = glob.glob("/uscms_data/d3/knash/WPrime8TeV/CMSSW_5_3_18/src/Analysis/TTBSMPatTuples/test/ttbar_Mtt-700to1000scaledown/res/*.root" )
+		files = glob.glob("/uscms_data/d3/knash/WPrime8TeV/CMSSW_5_3_18/src/Analysis/TTBSMPatTuples/test/ttbar_Mtt-700to1000_scaledown/res/*.root" )
 	if string == 'ttbar1000scaleup':
-		files = glob.glob("/uscms_data/d3/knash/WPrime8TeV/CMSSW_5_3_18/src/Analysis/TTBSMPatTuples/test/ttbar_Mtt-1000toInfscaleup/res/*.root")
+		files = glob.glob("/uscms_data/d3/knash/WPrime8TeV/CMSSW_5_3_18/src/Analysis/TTBSMPatTuples/test/ttbar_Mtt-1000toInf_scaleup/res/*.root")
 	if string == 'ttbar1000scaledown':
-		files = glob.glob("/uscms_data/d3/knash/WPrime8TeV/CMSSW_5_3_18/src/Analysis/TTBSMPatTuples/test/ttbar_Mtt-1000toInfscaledown/res/*.root" )
+		files = glob.glob("/uscms_data/d3/knash/WPrime8TeV/CMSSW_5_3_18/src/Analysis/TTBSMPatTuples/test/ttbar_Mtt-1000toInf_scaledown/res/*.root" )
 	if string == 'singletop_s':
 		files = glob.glob("/uscms_data/d3/knash/WPrime8TeV/CMSSW_5_3_18/src/Analysis/TTBSMPatTuples/test/singletop_s/res/*.root" )
 	if string == 'singletop_sB':
@@ -292,7 +292,7 @@ def BTR_Init(ST,CUT,di):
 		eta1fit = TF1("eta1fit",'pol3',0,1400)
 		eta2fit = TF1("eta2fit",'pol3',0,1400)
 		eta3fit = TF1("eta3fit",'pol3',0,1400)
-		Params = 4
+		Params = 3
 	if ST == 'FIT':
 		TRBPE1 = open(di+"fitdata/newfitinputeta1_PSET_"+CUT+".txt")
 		TRBPE1.seek(0)
@@ -442,6 +442,11 @@ def Fit_Uncertainty(List):
 		sigma=0.0
 		sumsqdiff = 0.0
 		for ihist in range(0,len(List)):
+
+			#######################FIX
+			if List[ihist].GetName() == 'QCDbkgpol3':
+				continue 
+
 			if List[ihist].GetName() != 'QCDbkgBifpoly':
 				sumsqdiff+=(List[ihist].GetBinContent(ibin)-nominalhist.GetBinContent(ibin))*(List[ihist].GetBinContent(ibin)-nominalhist.GetBinContent(ibin))
 		mse = sumsqdiff/fits
